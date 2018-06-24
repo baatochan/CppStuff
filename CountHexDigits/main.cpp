@@ -2,6 +2,7 @@
 #include <fstream>
 
 int main() {
+	// initialization of needed vars
 	int resultArray[16] = {0};
 
 	std::string path;
@@ -9,6 +10,9 @@ int main() {
 
 	std::ifstream file;
 
+	char characterFromFile;
+
+	// ask for path to file
 	do {
 		if (error)
 			std::cout << "Nie ma takiego pliku!" << std::endl;
@@ -21,8 +25,7 @@ int main() {
 		error = true;
 	} while (!file.is_open());
 
-	char characterFromFile;
-
+	// loop for every character from file and count it if hex digit
 	while (file.get(characterFromFile))
 		switch (characterFromFile) {
 			// ughhhh, cant think of better way to do it
@@ -103,6 +106,7 @@ int main() {
 
 		}
 
+	// print the result
 	std::cout << "Amount of: " << std::endl;
 	std::cout << "'0': " << resultArray[0] << std::endl;
 	std::cout << "'1': " << resultArray[1] << std::endl;
@@ -120,7 +124,6 @@ int main() {
 	std::cout << "'d': " << resultArray[13] << std::endl;
 	std::cout << "'e': " << resultArray[14] << std::endl;
 	std::cout << "'f': " << resultArray[15] << std::endl;
-
-
+	
 	return 0;
 }
