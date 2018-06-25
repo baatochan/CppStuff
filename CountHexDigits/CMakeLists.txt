@@ -3,4 +3,4 @@ project(CountHexDigits)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(CountHexDigits main.cpp)
+add_executable(CountHexDigits main.cpp Program.cpp Program.h)
