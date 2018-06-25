@@ -1,0 +1,3 @@
+[submodule "CountHexDigits/spdlog"]
+	path = CountHexDigits/spdlog
+	url = https://github.com/gabime/spdlog
