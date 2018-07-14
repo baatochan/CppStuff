@@ -8,18 +8,40 @@
 Program::Program() {}
 
 std::ifstream Program::file = {};
-std::vector<unsigned long long> Program::resultArray = {16, 0};
+std::vector<unsigned long long> Program::resultArray = {}; // {16, 0} doesnt work...
 
 unsigned long long Program::lineNumber = 0;
 
+std::shared_ptr<spdlog::logger> Program::consoleLogger = spdlog::stdout_color_mt("consoleLogger");
+std::shared_ptr<spdlog::logger> Program::fileLogger = nullptr;
+
+bool Program::fileLog = false;
+
 void Program::start() {
 	std::string path;
+	resultArray.resize(16);
+
+	prepareFileLogger();
 
 	path = askForPath();
 
 	countCharacters();
 
 	printResult();
+}
+
+void Program::prepareFileLogger() {
+	try {
+		fileLogger = spdlog::basic_logger_mt("fileLogger", "log.txt");
+	} catch (const spdlog::spdlog_ex& ex) {
+		std::cerr << "Initializacja logow do pliku sie nie powiodla. Aplikacja kontynuuje." << std::endl;
+	}
+
+	fileLog = true;
+
+	fileLogger->info("------------------------------------------------------------");
+	fileLogger->info("--------------------------- START --------------------------");
+	fileLogger->info("------------------------------------------------------------");
 }
 
 std::string Program::askForPath() {
@@ -140,22 +162,56 @@ void Program::countCharacters() {
 		}
 }
 
+void Program::printFounded0() {
+	if (fileLog)
+		fileLogger->info("Znaleziono '0' w lini {}.", lineNumber);
+}
+
+void Program::printFoundedZ() {
+	if (fileLog)
+		fileLogger->info("Znaleziono 'z' w lini {}.", lineNumber);
+}
+
+void Program::printLineNumber() {
+	fileLogger->info("Analiza lini {}.", lineNumber);
+}
+
 void Program::printResult() {
-	std::cout << "Amount of: " << std::endl;
-	std::cout << "'0': " << resultArray[0] << std::endl;
-	std::cout << "'1': " << resultArray[1] << std::endl;
-	std::cout << "'2': " << resultArray[2] << std::endl;
-	std::cout << "'3': " << resultArray[3] << std::endl;
-	std::cout << "'4': " << resultArray[4] << std::endl;
-	std::cout << "'5': " << resultArray[5] << std::endl;
-	std::cout << "'6': " << resultArray[6] << std::endl;
-	std::cout << "'7': " << resultArray[7] << std::endl;
-	std::cout << "'8': " << resultArray[8] << std::endl;
-	std::cout << "'9': " << resultArray[9] << std::endl;
-	std::cout << "'a': " << resultArray[10] << std::endl;
-	std::cout << "'b': " << resultArray[11] << std::endl;
-	std::cout << "'c': " << resultArray[12] << std::endl;
-	std::cout << "'d': " << resultArray[13] << std::endl;
-	std::cout << "'e': " << resultArray[14] << std::endl;
-	std::cout << "'f': " << resultArray[15] << std::endl;
+	if (fileLog) {
+		fileLogger->info("Amount of: ");
+		fileLogger->info("'0': {}", resultArray[0]);
+		fileLogger->info("'1': {}", resultArray[1]);
+		fileLogger->info("'2': {}", resultArray[2]);
+		fileLogger->info("'3': {}", resultArray[3]);
+		fileLogger->info("'4': {}", resultArray[4]);
+		fileLogger->info("'5': {}", resultArray[5]);
+		fileLogger->info("'6': {}", resultArray[6]);
+		fileLogger->info("'7': {}", resultArray[7]);
+		fileLogger->info("'8': {}", resultArray[8]);
+		fileLogger->info("'9': {}", resultArray[9]);
+		fileLogger->info("'a': {}", resultArray[10]);
+		fileLogger->info("'b': {}", resultArray[11]);
+		fileLogger->info("'c': {}", resultArray[12]);
+		fileLogger->info("'d': {}", resultArray[13]);
+		fileLogger->info("'e': {}", resultArray[14]);
+		fileLogger->info("'f': {}", resultArray[15]);
+	}
+
+	consoleLogger->info("Amount of: ");
+	consoleLogger->info("'0': {}", resultArray[0]);
+	consoleLogger->info("'1': {}", resultArray[1]);
+	consoleLogger->info("'2': {}", resultArray[2]);
+	consoleLogger->info("'3': {}", resultArray[3]);
+	consoleLogger->info("'4': {}", resultArray[4]);
+	consoleLogger->info("'5': {}", resultArray[5]);
+	consoleLogger->info("'6': {}", resultArray[6]);
+	consoleLogger->info("'7': {}", resultArray[7]);
+	consoleLogger->info("'8': {}", resultArray[8]);
+	consoleLogger->info("'9': {}", resultArray[9]);
+	consoleLogger->info("'a': {}", resultArray[10]);
+	consoleLogger->info("'b': {}", resultArray[11]);
+	consoleLogger->info("'c': {}", resultArray[12]);
+	consoleLogger->info("'d': {}", resultArray[13]);
+	consoleLogger->info("'e': {}", resultArray[14]);
+	consoleLogger->info("'f': {}", resultArray[15]);
 }
