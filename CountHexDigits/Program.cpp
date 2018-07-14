@@ -76,7 +76,7 @@ void Program::countCharacters() {
 
 			case '0':
 				resultArray[0]++;
-				printFounded0();
+				printFoundedChar('0');
 				break;
 
 			case '1':
@@ -146,7 +146,11 @@ void Program::countCharacters() {
 				break;
 
 			case 'z':
-				printFoundedZ();
+				printFoundedChar('z');
+				break;
+
+			case 'Z':
+				printFoundedChar('Z');
 				break;
 
 			case '\n':
@@ -166,14 +170,9 @@ void Program::countCharacters() {
 		}
 }
 
-void Program::printFounded0() {
+void Program::printFoundedChar(char c) {
 	if (fileLog)
-		fileLogger->info("Znaleziono '0' w lini {}.", lineNumber);
-}
-
-void Program::printFoundedZ() {
-	if (fileLog)
-		fileLogger->info("Znaleziono 'z' w lini {}.", lineNumber);
+		fileLogger->info("Znaleziono '{}' w lini {}.", c, lineNumber);
 }
 
 void Program::printLineNumber() {

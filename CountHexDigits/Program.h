@@ -37,8 +37,7 @@ private:
 
 	static void countCharacters(); // loop for every character from file and count it if hex digit
 
-	static void printFounded0(); // print line number with 0
-	static void printFoundedZ(); // print line number with z/Z
+	static void printFoundedChar(char c); // print line number with char
 	static void printLineNumber(); // print line number
 	static void printResult(unsigned long long position); // print the result
 
