@@ -10,7 +10,7 @@ Program::Program() {}
 std::ifstream Program::file = {};
 std::vector<unsigned long long> Program::resultArray = {}; // {16, 0} doesnt work...
 
-unsigned long long Program::lineNumber = 0;
+unsigned long long Program::lineNumber = 1;
 
 std::shared_ptr<spdlog::logger> Program::consoleLogger = spdlog::stdout_color_mt("consoleLogger");
 std::shared_ptr<spdlog::logger> Program::fileLogger = nullptr;
@@ -21,13 +21,17 @@ void Program::start() {
 	std::string path;
 	resultArray.resize(16);
 
+	spdlog::set_pattern("%v");
+
 	prepareFileLogger();
 
 	path = askForPath();
 
+	printLineNumber();
+
 	countCharacters();
 
-	printResult();
+	printResult(-1);
 }
 
 void Program::prepareFileLogger() {
@@ -146,8 +150,8 @@ void Program::countCharacters() {
 				break;
 
 			case '\n':
-				if (lineNumber % 100 == 99) {
-					printResult();
+				if (lineNumber % 100 == 0) {
+					printResult(lineNumber);
 				}
 
 				lineNumber++;
@@ -176,9 +180,17 @@ void Program::printLineNumber() {
 	fileLogger->info("Analiza lini {}.", lineNumber);
 }
 
-void Program::printResult() {
+void Program::printResult(unsigned long long position) {
 	if (fileLog) {
-		fileLogger->info("Amount of: ");
+		if (position == -1) {
+			fileLogger->info("----------------------------------------");
+			fileLogger->info("------------ KONCOWY WYNIK -------------", position);
+			fileLogger->info("----------------------------------------");
+		} else {
+			fileLogger->info("----------------------------------------");
+			fileLogger->info("Wynik po lini {}:", position);
+			fileLogger->info("----------------------------------------");
+		}
 		fileLogger->info("'0': {}", resultArray[0]);
 		fileLogger->info("'1': {}", resultArray[1]);
 		fileLogger->info("'2': {}", resultArray[2]);
@@ -197,7 +209,15 @@ void Program::printResult() {
 		fileLogger->info("'f': {}", resultArray[15]);
 	}
 
-	consoleLogger->info("Amount of: ");
+	if (position == -1) {
+		consoleLogger->info("----------------------------------------");
+		consoleLogger->info("------------ KONCOWY WYNIK -------------", position);
+		consoleLogger->info("----------------------------------------");
+	} else {
+		consoleLogger->info("----------------------------------------");
+		consoleLogger->info("Wynik po lini {}:", position);
+		consoleLogger->info("----------------------------------------");
+	}
 	consoleLogger->info("'0': {}", resultArray[0]);
 	consoleLogger->info("'1': {}", resultArray[1]);
 	consoleLogger->info("'2': {}", resultArray[2]);

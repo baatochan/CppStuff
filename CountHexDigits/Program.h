@@ -40,7 +40,7 @@ private:
 	static void printFounded0(); // print line number with 0
 	static void printFoundedZ(); // print line number with z/Z
 	static void printLineNumber(); // print line number
-	static void printResult(); // print the result
+	static void printResult(unsigned long long position); // print the result
 
 };
 
