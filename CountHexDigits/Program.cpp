@@ -10,6 +10,8 @@ Program::Program() {}
 std::ifstream Program::file = {};
 std::vector<unsigned long long> Program::resultArray = {16, 0};
 
+unsigned long long Program::lineNumber = 0;
+
 void Program::start() {
 	std::string path;
 
@@ -26,7 +28,7 @@ std::string Program::askForPath() {
 
 	do {
 		if (error)
-			std::cout << "Nie ma takiego pliku!" << std::endl;
+			std::cerr << "Nie ma takiego pliku!" << std::endl;
 
 		std::cout << "Podaj sciezke do pliku: ";
 		getline(std::cin, path);
@@ -48,6 +50,7 @@ void Program::countCharacters() {
 
 			case '0':
 				resultArray[0]++;
+				printFounded0();
 				break;
 
 			case '1':
@@ -114,6 +117,20 @@ void Program::countCharacters() {
 			case 'f':
 			case 'F':
 				resultArray[15]++;
+				break;
+
+			case 'z':
+				printFoundedZ();
+				break;
+
+			case '\n':
+				if (lineNumber % 100 == 99) {
+					printResult();
+				}
+
+				lineNumber++;
+
+				printLineNumber();
 				break;
 
 			default:

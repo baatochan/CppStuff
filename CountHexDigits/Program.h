@@ -17,6 +17,8 @@ private:
 	static std::ifstream file;
 	static std::vector<unsigned long long> resultArray;
 
+	static unsigned long long lineNumber;
+
 public:
 	static void start();
 
