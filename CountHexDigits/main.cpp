@@ -1,6 +1,6 @@
 /**
  *
- * Twoim zadaniem jest stworzyć program, który wczyta z pliku o formatowaniu (Patrz załącznik 1 [file_1.txt])) dane, i policzy kilka rzeczy.
+ * Twoim zadaniem jest stworzyć program, który wczyta z pliku o formatowaniu (Patrz załącznik 1 [templateData/file2]) dane, i policzy kilka rzeczy.
  *
  * 1) ilość występujących (1, 2, 3, 4, ... 0)
  * 2) Ilość występujących (a,b,c,d,e,f)
