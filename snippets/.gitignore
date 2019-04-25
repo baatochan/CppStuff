@@ -1,0 +1,10 @@
+# Exclude all files without extension in this directory tree
+# 1. Exclude all files
+*
+# 2. Reinclude all dirs
+!/**/
+# 3. Reinclude all files with any extesion
+!*.*
+# 4. Reinclude Makefiles
+!**/Makefile
+!**/makefile
